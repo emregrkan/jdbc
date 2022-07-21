@@ -11,37 +11,45 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeDao employeeDao;
 
-    public EmployeeServiceImpl() {
+    private EmployeeServiceImpl() {
         this.employeeDao = EmployeeDaoImpl.getInstance();
     }
 
+    public static EmployeeService getInstance() {
+        return EmployeeServiceImplHolder.INSTANCE;
+    }
+
     @Override
-    public <S extends Employee> S saveEmployee(S entity) {
+    public <S extends Employee> S save(S entity) {
         return this.employeeDao.save(entity);
     }
 
     @Override
-    public <S extends Employee> Iterable<S> saveAllEmployees(Iterable<S> entities) {
+    public <S extends Employee> Iterable<S> saveAll(Iterable<S> entities) {
         return this.employeeDao.saveAll(entities);
     }
 
     @Override
-    public Optional<Employee> findOneEmployee(Integer id) {
+    public Optional<Employee> findOne(Integer id) {
         return this.employeeDao.findOne(id);
     }
 
     @Override
-    public Iterable<Employee> findAllEmployees() {
+    public Iterable<Employee> findAll() {
         return this.employeeDao.findAll();
     }
 
     @Override
-    public boolean deleteEmployee(Employee entity) {
-        return this.employeeDao.delete(entity);
+    public boolean delete(Integer id) {
+        return this.employeeDao.delete(id);
     }
 
     @Override
-    public boolean deleteAllEmployees() {
+    public boolean deleteAll() {
         return this.employeeDao.deleteAll();
+    }
+
+    private static class EmployeeServiceImplHolder {
+        private static final EmployeeService INSTANCE = new EmployeeServiceImpl();
     }
 }

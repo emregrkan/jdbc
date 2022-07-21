@@ -1,6 +1,10 @@
 package net.sni.jdbc.entity;
 
+import net.sni.jdbc.annotation.Entity;
+import net.sni.jdbc.controller.impl.EmployeeControllerImpl;
+import net.sni.jdbc.dto.EmployeeDto;
 
+@Entity(controller = EmployeeControllerImpl.class, dto = EmployeeDto.class)
 public class Employee {
 
     private Integer id;

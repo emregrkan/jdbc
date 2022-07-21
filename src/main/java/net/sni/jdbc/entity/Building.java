@@ -1,5 +1,10 @@
 package net.sni.jdbc.entity;
 
+import net.sni.jdbc.annotation.Entity;
+import net.sni.jdbc.controller.impl.BuildingControllerImpl;
+import net.sni.jdbc.dto.BuildingDto;
+
+@Entity(controller = BuildingControllerImpl.class, dto = BuildingDto.class)
 public class Building {
 
     private Integer id;

@@ -11,37 +11,45 @@ public class BuildingServiceImpl implements BuildingService {
 
     private final BuildingDao buildingDao;
 
-    public BuildingServiceImpl() {
+    private BuildingServiceImpl() {
         this.buildingDao = BuildingDaoImpl.getInstance();
     }
 
+    public static BuildingService getInstance() {
+        return BuildingServiceImplHolder.INSTANCE;
+    }
+
     @Override
-    public <S extends Building> S saveBuilding(S entity) {
+    public <S extends Building> S save(S entity) {
         return this.buildingDao.save(entity);
     }
 
     @Override
-    public <S extends Building> Iterable<S> saveAllBuildings(Iterable<S> entities) {
+    public <S extends Building> Iterable<S> saveAll(Iterable<S> entities) {
         return this.buildingDao.saveAll(entities);
     }
 
     @Override
-    public Optional<Building> findOneBuilding(Integer id) {
+    public Optional<Building> findOne(Integer id) {
         return this.buildingDao.findOne(id);
     }
 
     @Override
-    public Iterable<Building> findAllBuildings() {
+    public Iterable<Building> findAll() {
         return this.buildingDao.findAll();
     }
 
     @Override
-    public boolean deleteBuilding(Building entity) {
-        return this.buildingDao.delete(entity);
+    public boolean delete(Integer id) {
+        return this.buildingDao.delete(id);
     }
 
     @Override
-    public boolean deleteAllBuildings() {
+    public boolean deleteAll() {
         return this.buildingDao.deleteAll();
+    }
+
+    private static class BuildingServiceImplHolder {
+        private static final BuildingService INSTANCE = new BuildingServiceImpl();
     }
 }

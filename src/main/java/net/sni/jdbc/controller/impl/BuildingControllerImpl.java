@@ -11,37 +11,45 @@ public class BuildingControllerImpl implements BuildingController {
 
     private final BuildingService buildingService;
 
-    public BuildingControllerImpl() {
-        this.buildingService = new BuildingServiceImpl();
+    private BuildingControllerImpl() {
+        this.buildingService = BuildingServiceImpl.getInstance();
+    }
+
+    public static BuildingController getInstance() {
+        return BuildingControllerImplHolder.INSTANCE;
     }
 
     @Override
-    public <S extends Building> S saveBuilding(S entity) {
-        return this.buildingService.saveBuilding(entity);
+    public <S extends Building> S save(S entity) {
+        return this.buildingService.save(entity);
     }
 
     @Override
-    public <S extends Building> Iterable<S> saveAllBuildings(Iterable<S> entities) {
-        return this.buildingService.saveAllBuildings(entities);
+    public <S extends Building> Iterable<S> saveAll(Iterable<S> entities) {
+        return this.buildingService.saveAll(entities);
     }
 
     @Override
-    public Optional<Building> findOneBuilding(Integer id) {
-        return this.buildingService.findOneBuilding(id);
+    public Optional<Building> findOne(Integer id) {
+        return this.buildingService.findOne(id);
     }
 
     @Override
-    public Iterable<Building> findAllBuildings() {
-        return this.buildingService.findAllBuildings();
+    public Iterable<Building> findAll() {
+        return this.buildingService.findAll();
     }
 
     @Override
-    public boolean deleteBuilding(Building entity) {
-        return this.buildingService.deleteBuilding(entity);
+    public boolean delete(Integer id) {
+        return this.buildingService.delete(id);
     }
 
     @Override
-    public boolean deleteAllBuildings() {
-        return this.buildingService.deleteAllBuildings();
+    public boolean deleteAll() {
+        return this.buildingService.deleteAll();
+    }
+
+    private static class BuildingControllerImplHolder {
+        private static final BuildingController INSTANCE = new BuildingControllerImpl();
     }
 }

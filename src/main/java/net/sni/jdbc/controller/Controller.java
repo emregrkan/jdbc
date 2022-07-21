@@ -1,11 +1,8 @@
-package net.sni.jdbc.dao;
+package net.sni.jdbc.controller;
 
 import java.util.Optional;
 
-public interface Dao<T, ID> {
-
-    void init();
-
+public interface Controller<T, ID> {
     <S extends T> S save(S entity);
 
     <S extends T> Iterable<S> saveAll(Iterable<S> entities);

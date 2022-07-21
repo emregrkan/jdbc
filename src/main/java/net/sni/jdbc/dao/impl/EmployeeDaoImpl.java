@@ -31,7 +31,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     public static EmployeeDao getInstance() {
-        return EmployeeDaoImplHelper.employeeDao;
+        return EmployeeDaoImplHolder.INSTANCE;
     }
 
     @Override
@@ -142,10 +142,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public boolean delete(Employee entity) {
+    public boolean delete(Integer id) {
 
         try (Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
-            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setInt(1, id);
             int rowsUpdated = preparedStatement.executeUpdate();
 
             return rowsUpdated > 0;
@@ -182,7 +182,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return new Employee(employeeId, employeeName, employeeRole, building);
     }
 
-    private static class EmployeeDaoImplHelper {
-        private static final EmployeeDao employeeDao = new EmployeeDaoImpl();
+    private static class EmployeeDaoImplHolder {
+        private static final EmployeeDao INSTANCE = new EmployeeDaoImpl();
     }
 }

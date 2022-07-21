@@ -9,7 +9,7 @@ public class EmployeeDto {
     private String role;
     private String buildingAddress;
 
-    public static EmployeeDto convertToEmployeeDto(Employee employee) {
+    public static EmployeeDto convertToDto(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setId(employee.getId());
         employeeDto.setName(employee.getName());
@@ -53,5 +53,15 @@ public class EmployeeDto {
 
     public void setBuildingAddress(String buildingAddress) {
         this.buildingAddress = buildingAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", buildingAddress='" + buildingAddress + '\'' +
+                '}';
     }
 }

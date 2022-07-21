@@ -28,7 +28,7 @@ public class BuildingDaoImpl implements BuildingDao {
     }
 
     public static BuildingDao getInstance() {
-        return BuildingDaoImplHelper.buildingDao;
+        return BuildingDaoImplHolder.INSTANCE;
     }
 
     @Override
@@ -123,10 +123,10 @@ public class BuildingDaoImpl implements BuildingDao {
     }
 
     @Override
-    public boolean delete(Building entity) {
+    public boolean delete(Integer id) {
 
         try (Connection connection = DataSource.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE)) {
-            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setInt(1, id);
             int rowsUpdated = preparedStatement.executeUpdate();
 
             return rowsUpdated > 0;
@@ -147,7 +147,7 @@ public class BuildingDaoImpl implements BuildingDao {
         }
     }
 
-    private static class BuildingDaoImplHelper {
-        private static final BuildingDao buildingDao = new BuildingDaoImpl();
+    private static class BuildingDaoImplHolder {
+        private static final BuildingDao INSTANCE = new BuildingDaoImpl();
     }
 }
