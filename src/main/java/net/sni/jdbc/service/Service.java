@@ -3,9 +3,9 @@ package net.sni.jdbc.service;
 import java.util.Optional;
 
 public interface Service<T, ID> {
-    <S extends T> S save(S entity);
+    T save(T entity);
 
-    <S extends T> Iterable<S> saveAll(Iterable<S> entities);
+    Iterable<T> saveAll(Iterable<T> entities);
 
     Optional<T> findOne(ID id);
 

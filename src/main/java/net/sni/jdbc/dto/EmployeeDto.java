@@ -3,32 +3,37 @@ package net.sni.jdbc.dto;
 import net.sni.jdbc.entity.Building;
 import net.sni.jdbc.entity.Employee;
 
+import java.util.Optional;
+
 public class EmployeeDto {
-    private Integer id;
     private String name;
     private String role;
-    private String buildingAddress;
+    private BuildingDto buildingDto;
 
-    public static EmployeeDto convertToDto(Employee employee) {
+    public static <S extends Employee> EmployeeDto convertToDto(S employee) {
         EmployeeDto employeeDto = new EmployeeDto();
-        employeeDto.setId(employee.getId());
         employeeDto.setName(employee.getName());
         employeeDto.setRole(employee.getRole());
         Building building = employee.getBuilding();
 
         if (building != null) {
-            employeeDto.setBuildingAddress(building.getAddress());
+            employeeDto.setBuildingDto(BuildingDto.convertToDto(building));
         }
 
         return employeeDto;
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public static Employee convertToEntity(EmployeeDto employeeDto) {
+        Employee employee = new Employee();
+        employee.setName(employeeDto.getName());
+        employee.setRole(employeeDto.getRole());
+        BuildingDto buildingDto = employeeDto.getBuildingDto();
 
-    public void setId(Integer id) {
-        this.id = id;
+        if (buildingDto != null) {
+            employee.setBuilding(BuildingDto.convertToEntity(buildingDto));
+        }
+
+        return employee;
     }
 
     public String getName() {
@@ -47,21 +52,20 @@ public class EmployeeDto {
         this.role = role;
     }
 
-    public String getBuildingAddress() {
-        return buildingAddress;
+    public BuildingDto getBuildingDto() {
+        return buildingDto;
     }
 
-    public void setBuildingAddress(String buildingAddress) {
-        this.buildingAddress = buildingAddress;
+    public void setBuildingDto(BuildingDto buildingDto) {
+        this.buildingDto = buildingDto;
     }
 
     @Override
     public String toString() {
         return "EmployeeDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", role='" + role + '\'' +
-                ", buildingAddress='" + buildingAddress + '\'' +
+                ", building='" + buildingDto + '\'' +
                 '}';
     }
 }

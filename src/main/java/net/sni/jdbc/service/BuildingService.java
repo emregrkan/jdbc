@@ -1,6 +1,6 @@
 package net.sni.jdbc.service;
 
-import net.sni.jdbc.entity.Building;
+import net.sni.jdbc.dto.BuildingDto;
 
-public interface BuildingService extends Service<Building, Integer> {
+public interface BuildingService extends Service<BuildingDto, Integer> {
 }

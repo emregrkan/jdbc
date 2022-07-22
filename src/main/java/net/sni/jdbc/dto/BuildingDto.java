@@ -7,10 +7,17 @@ public class BuildingDto {
     private Integer workingEmployees;
 
     public static BuildingDto convertToDto(Building building) {
-        BuildingDto buildingDto = new BuildingDto();
+        final BuildingDto buildingDto = new BuildingDto();
         buildingDto.setAddress(building.getAddress());
         buildingDto.setWorkingEmployees(building.getWorkingEmployees());
         return buildingDto;
+    }
+
+    public static Building convertToEntity(BuildingDto buildingDto) {
+        final Building building = new Building();
+        building.setAddress(buildingDto.getAddress());
+        building.setWorkingEmployees(buildingDto.getWorkingEmployees());
+        return building;
     }
 
     public String getAddress() {
